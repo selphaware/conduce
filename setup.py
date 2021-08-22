@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="conduce",
-    version="0.0.1",
+    version="0.0.2",
     author="Usman Ahmad",
     author_email="uahmad3013@outlook.com",
     description="A config util package to flatten-reduce long keys",
