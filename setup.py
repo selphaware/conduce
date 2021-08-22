@@ -8,7 +8,7 @@ setuptools.setup(
     version="0.0.1",
     author="Usman Ahmad",
     author_email="uahmad3013@outlook.com",
-    description="A config util package to reduce key value pairs to flat strings",
+    description="A config util package to flatten-reduce long keys",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/selphaware/conduce",
