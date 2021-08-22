@@ -19,7 +19,7 @@ class ConfigReader(object):
 
 
 # read config
-def read_config(
+def read_yaml(
         config_name: str,
         root_path=""
 ):
