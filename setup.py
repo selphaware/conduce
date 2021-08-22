@@ -4,7 +4,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="conduce-ahmadu",
+    name="conduce",
     version="0.0.1",
     author="Usman Ahmad",
     author_email="uahmad3013@outlook.com",
