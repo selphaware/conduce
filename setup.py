@@ -11,9 +11,9 @@ setuptools.setup(
     description="A config util package",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/pypa/sampleproject",
+    url="https://github.com/selphaware/conduce",
     project_urls={
-        "Bug Tracker": "https://github.com/pypa/sampleproject/issues",
+        "Bug Tracker": "https://github.com/selphaware/conduce/issues",
     },
     classifiers=[
         "Programming Language :: Python :: 3",
