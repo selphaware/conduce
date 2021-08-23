@@ -16,11 +16,11 @@ class TestConduce(unittest.TestCase):
 
     def test_empty_key_json(self):
         cfg = read_json("test.json", "tests")
-        self.assertEqual(list(cfg('').keys())[0], "alpha")
+        self.assertEqual(list(cfg().keys())[0], "alpha")
 
     def test_empty_key_yaml(self):
         cfg = read_yaml("test.yaml", "tests")
-        self.assertEqual(list(cfg('').keys())[0], "alpha")
+        self.assertEqual(list(cfg().keys())[0], "alpha")
 
 
 if __name__ == '__main__':
