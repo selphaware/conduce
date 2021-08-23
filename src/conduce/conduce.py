@@ -32,7 +32,7 @@ class ConfigReader(object):
         :param key: flat key e.g. "alpha.beta.gamma"
         :return: value from dictionary
         """
-        return reduce_get(self.cfg, key)
+        return self.cfg if not len(key) else reduce_get(self.cfg, key)
 
 
 # read config (general)
