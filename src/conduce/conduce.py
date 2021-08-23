@@ -35,6 +35,32 @@ class ConfigReader(object):
         return reduce_get(self.cfg, key)
 
 
+# read config (general)
+def read_config(
+        config_type: str,
+        config_name: str,
+        root_path=""
+):
+    """
+    general config reader
+    :param config_type: json or yaml
+    :param config_name: yaml/json file name
+    :param root_path: yaml/json file path
+    :return: ConfigReader object containing config
+    """
+    config_path = opj(root_path, config_name)
+    config_fun = {
+        "json": [json.load, {}],
+        "yaml": [yaml.load, {"Loader": yaml.FullLoader}]
+    }
+    fun = config_fun[config_type]
+    config_stream = open(config_path)
+    config_dict = fun[0](config_stream, **fun[1])
+    config_stream.close()
+
+    return ConfigReader(config_dict).get
+
+
 # read config (yaml)
 def read_yaml(
         config_name: str,
@@ -46,10 +72,7 @@ def read_yaml(
     :param root_path: yaml file path
     :return: ConfigReader object
     """
-    path_yaml = opj(root_path, config_name)
-    yaml_dict = yaml.load(open(path_yaml), Loader=yaml.FullLoader)
-
-    return ConfigReader(yaml_dict).get
+    return read_config(config_type="yaml", config_name=config_name, root_path=root_path)
 
 
 # read config (json)
@@ -63,7 +86,4 @@ def read_json(
     :param root_path: json file path
     :return: ConfigReader object
     """
-    path_json = opj(root_path, config_name)
-    json_dict = json.load(open(path_json))
-
-    return ConfigReader(json_dict).get
+    return read_config(config_type="json", config_name=config_name, root_path=root_path)

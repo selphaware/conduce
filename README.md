@@ -29,10 +29,12 @@ alpha:
 <br><b>example.py</b>: <br>
 ````python 
 from conduce import conduce
-c1 = conduce.read_yaml("some.yaml", "some/path/to/the/yaml")
-c2 = conduce.read_json("some.json", "some/path/to/the/json")
-c3 = conduce.read_yaml("some_deep_nested.yaml", "some/path/to/the/yaml")
+c1 = conduce.read_yaml(config_name="some.yaml", root_path="some/path/to/the/yaml")
+c2 = conduce.read_json(config_name="some.json", root_path="some/path/to/the/json")
+c3 = conduce.read_yaml(config_name="some_deep_nested.yaml", root_path="some/path/to/the/yaml")
+c4 = conduce.read_config(config_type="json", config_name="some.json", root_path="some/path/to/the/yaml")
 c1('alpha.beta.gamma') # returns value "hello"
 c2('alpha.beta.gamma') # returns value "world"
 c3('alpha.beta.gamma.delta.theta.phi') # returns value "finally!!!"
+c4('alpha.beta.gamma') # returns value "world" (same as c2)
 ```` 
