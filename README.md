@@ -27,7 +27,7 @@ alpha:
 from conduce import conduce
 c1 = conduce.read_yaml("some.yaml", "some/path/to/the/yaml")
 c2 = conduce.read_json("some.json", "some/path/to/the/json")
-c3 = conduce.read_json("some_deep_nested.json", "some/path/to/the/json")
+c3 = conduce.read_yaml("some_deep_nested.yaml", "some/path/to/the/yaml")
 c1('alpha.beta.gamma') # returns value "hello"
 c2('alpha.beta.gamma') # returns value "world"
 c3('alpha.beta.gamma.delta.theta.phi') # returns value "finally!!!"
