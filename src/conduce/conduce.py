@@ -26,7 +26,7 @@ class ConfigReader(object):
         self.cfg = cfg
 
     # get
-    def get(self, key):
+    def get(self, key: str = ""):
         """
         get value from dictionary based on flat key
         :param key: flat key e.g. "alpha.beta.gamma"
