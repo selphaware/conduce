@@ -2,17 +2,21 @@
 <i><b>conduce</b></i> - A simple config package which flatten-reduces all keys of either a YAML or JSON config
 to allow a simple way to get values from long keys.
 <br><br>
-<b>some.yaml</b>:<br>
+<b>Installation</b><br>
+````commandline
+pip install conduce
+````
+<br><b>some.yaml</b>
 ````yaml 
 alpha:
     beta:
         gamma: "hello"
 ```` 
-<b>some.json</b>:<br>
+<br><b>some.json</b>:<br>
 ````json 
 {"alpha": {"beta": {"gamma": "world"}}}
 ```` 
-<b>some_deep_nested.yaml</b>:<br>
+<br><b>some_deep_nested.yaml</b>:<br>
 ````yaml 
 alpha:
     beta:
@@ -22,7 +26,7 @@ alpha:
                     phi:
                         "finally!!!"
 ```` 
-<b>example.py</b>: <br>
+<br><b>example.py</b>: <br>
 ````python 
 from conduce import conduce
 c1 = conduce.read_yaml("some.yaml", "some/path/to/the/yaml")
