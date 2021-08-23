@@ -37,4 +37,5 @@ c1('alpha.beta.gamma') # returns value "hello"
 c2('alpha.beta.gamma') # returns value "world"
 c3('alpha.beta.gamma.delta.theta.phi') # returns value "finally!!!"
 c4('alpha.beta.gamma') # returns value "world" (same as c2)
+c4() # empty key returns full config dictionary of some.json
 ```` 
