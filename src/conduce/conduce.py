@@ -106,23 +106,54 @@ class NStruct:
             if isinstance(val, dict):
                 self.__dict__.update({key: NStruct(**val)})
             elif isinstance(val, list):
-                self.__dict__.update({key: traverse_list(val)})
+                self.__dict__.update({key: traverse_list(val, NStruct)})
             else:
                 self.__dict__.update({key: val})
 
+    def value(self):
+        res = {}
+        for k, v in self.__dict__.items():
+            if isinstance(v, NStruct):
+                res[k] = traverse_dict(v.__dict__)
+            elif isinstance(v, list):
+                res[k] = traverse_list(v, dict)
+            else:
+                res[k] = v
+        return res
 
-def traverse_list(lss: list) -> list:
+
+def traverse_list(lss: list, obj_type) -> list:
     """
     traverses through list converting dictionaries to NStruct
     :param lss: input list
+    :param obj_type: either NStruct or dict
     :return: returns transformed list where dics are converted to NStruct
     """
     res = []
     for ls in lss:
         if isinstance(ls, dict):
-            res.append(NStruct(**ls))
+            res.append(obj_type(**ls))
+        elif isinstance(ls, NStruct):
+            res.append(traverse_dict(ls.__dict__))
         elif isinstance(ls, list):
-            res.append(traverse_list(ls))
+            res.append(traverse_list(ls, obj_type))
         else:
             res.append(ls)
+    return res
+
+
+def traverse_dict(dic: dict) -> dict:
+    """
+    traverses through list converting dictionaries to NStruct
+    :param dic: input list
+    :return: returns transformed list where dics are converted to NStruct
+    """
+    res = {}
+    for k, v in dic.items():
+        if isinstance(v, NStruct):
+            res[k] = traverse_dict(v.__dict__)
+        elif isinstance(v, list):
+            res[k] = traverse_list(v, dict)
+        else:
+            res[k] = v
     return res

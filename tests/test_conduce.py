@@ -34,6 +34,15 @@ class TestConduce(unittest.TestCase):
         cfg = read_yaml("some_deep_nested.yaml", "tests", type_obj=True)
         self.assertEqual(cfg.alpha.hello[3].rho[2].fellow, "end of the road")
 
+    def test_nstruct_value_len(self):
+        cfg = read_yaml("some_deep_nested.yaml", "tests", type_obj=True)
+        self.assertEqual(len(cfg.alpha.value()), 2)
+
+    def test_nstruct_value(self):
+        cfg = read_yaml("some_deep_nested.yaml", "tests", type_obj=True)
+        self.assertEqual(cfg.alpha.hello[3].value()['rho'][2]['fellow'], "end of the road")
+        self.assertEqual(len(cfg.alpha.value()['hello']), 4)
+
 
 if __name__ == '__main__':
     unittest.main()
