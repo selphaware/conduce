@@ -39,13 +39,15 @@ class ConfigReader(object):
 def read_config(
         config_type: str,
         config_name: str,
-        root_path=""
+        root_path="",
+        type_obj=False
 ):
     """
     general config reader
     :param config_type: json or yaml
     :param config_name: yaml/json file name
     :param root_path: yaml/json file path
+    :param type_obj: True if return obj is NStruct otherwise is ConfigReader
     :return: ConfigReader object containing config
     """
     config_path = opj(root_path, config_name)
@@ -58,32 +60,69 @@ def read_config(
     config_dict = fun[0](config_stream, **fun[1])
     config_stream.close()
 
-    return ConfigReader(config_dict).get
+    return ConfigReader(config_dict).get if not type_obj else NStruct(**config_dict)
 
 
 # read config (yaml)
 def read_yaml(
         config_name: str,
-        root_path=""
+        root_path="",
+        type_obj=False
 ):
     """
     read yaml config into ConfigReader object
     :param config_name: yaml file name
     :param root_path: yaml file path
+    :param type_obj: True if return obj is NStruct otherwise is ConfigReader
     :return: ConfigReader object
     """
-    return read_config(config_type="yaml", config_name=config_name, root_path=root_path)
+    return read_config(config_type="yaml", config_name=config_name, root_path=root_path, type_obj=type_obj)
 
 
 # read config (json)
 def read_json(
         config_name: str,
-        root_path=""
+        root_path="",
+        type_obj=False
 ):
     """
     read json config into ConfigReader object
     :param config_name: json file name
     :param root_path: json file path
+    :param type_obj: True if return obj is NStruct otherwise is ConfigReader
     :return: ConfigReader object
     """
-    return read_config(config_type="json", config_name=config_name, root_path=root_path)
+    return read_config(config_type="json", config_name=config_name, root_path=root_path, type_obj=type_obj)
+
+
+# Nested Structure class to hold contents of a dictionary
+class NStruct:
+    def __init__(self, **entries):
+        """
+        constructor which takes a dictionary and places all elements in this class
+        :param entries: dictionary of key value pair items
+        """
+        for key, val in entries.items():
+            if isinstance(val, dict):
+                self.__dict__.update({key: NStruct(**val)})
+            elif isinstance(val, list):
+                self.__dict__.update({key: traverse_list(val)})
+            else:
+                self.__dict__.update({key: val})
+
+
+def traverse_list(lss: list) -> list:
+    """
+    traverses through list converting dictionaries to NStruct
+    :param lss: input list
+    :return: returns transformed list where dics are converted to NStruct
+    """
+    res = []
+    for ls in lss:
+        if isinstance(ls, dict):
+            res.append(NStruct(**ls))
+        elif isinstance(ls, list):
+            res.append(traverse_list(ls))
+        else:
+            res.append(ls)
+    return res

@@ -1,0 +1,15 @@
+alpha:
+    beta:
+        gamma:
+            delta:
+                theta:
+                    phi:
+                        "finally!!!"
+    hello:
+        - 1
+        - 2
+        - 3
+        - rho:
+            - 10
+            - 100
+            - fellow: "end of the road"

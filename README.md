@@ -25,6 +25,14 @@ alpha:
                 theta:
                     phi:
                         "finally!!!"
+    hello:
+        - 1
+        - 2
+        - 3
+        - rho:
+            - 10
+            - 100
+            - fellow: "end of the road"
 ```` 
 <br><b>example.py</b>: <br>
 ````python 
@@ -38,4 +46,10 @@ c2('alpha.beta.gamma') # returns value "world"
 c3('alpha.beta.gamma.delta.theta.phi') # returns value "finally!!!"
 c4('alpha.beta.gamma') # returns value "world" (same as c2)
 c4() # empty key returns full config dictionary of some.json
+
+# NStruct (class object) example
+c5 = conduce.read_yaml(config_name="some_deep_nested.yaml", 
+                       root_path="some/path/to/the/yaml",
+                       type_obj=True)
+c5.alpha.hello[3].rho[2].fellow # returns value "end of the road"
 ```` 
