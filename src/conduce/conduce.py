@@ -144,7 +144,7 @@ def traverse_list(lss: list, obj_type) -> list:
 
 def traverse_dict(dic: dict) -> dict:
     """
-    traverses through list converting dictionaries to NStruct
+    traverses through list converting NStruct to dictionaries
     :param dic: input list
     :return: returns transformed list where dics are converted to NStruct
     """
