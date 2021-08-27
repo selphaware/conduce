@@ -40,14 +40,14 @@ def read_config(
         config_type: str,
         config_name: str,
         root_path="",
-        type_obj=False
+        nstruct=False
 ):
     """
     general config reader
     :param config_type: json or yaml
     :param config_name: yaml/json file name
     :param root_path: yaml/json file path
-    :param type_obj: True if return obj is NStruct otherwise is ConfigReader
+    :param nstruct: True if return obj is NStruct otherwise is ConfigReader
     :return: ConfigReader object containing config
     """
     config_path = opj(root_path, config_name)
@@ -60,39 +60,39 @@ def read_config(
     config_dict = fun[0](config_stream, **fun[1])
     config_stream.close()
 
-    return ConfigReader(config_dict).get if not type_obj else NStruct(**config_dict)
+    return ConfigReader(config_dict).get if not nstruct else NStruct(**config_dict)
 
 
 # read config (yaml)
 def read_yaml(
         config_name: str,
         root_path="",
-        type_obj=False
+        nstruct=False
 ):
     """
     read yaml config into ConfigReader object
     :param config_name: yaml file name
     :param root_path: yaml file path
-    :param type_obj: True if return obj is NStruct otherwise is ConfigReader
+    :param nstruct: True if return obj is NStruct otherwise is ConfigReader
     :return: ConfigReader object
     """
-    return read_config(config_type="yaml", config_name=config_name, root_path=root_path, type_obj=type_obj)
+    return read_config(config_type="yaml", config_name=config_name, root_path=root_path, nstruct=nstruct)
 
 
 # read config (json)
 def read_json(
         config_name: str,
         root_path="",
-        type_obj=False
+        nstruct=False
 ):
     """
     read json config into ConfigReader object
     :param config_name: json file name
     :param root_path: json file path
-    :param type_obj: True if return obj is NStruct otherwise is ConfigReader
+    :param nstruct: True if return obj is NStruct otherwise is ConfigReader
     :return: ConfigReader object
     """
-    return read_config(config_type="json", config_name=config_name, root_path=root_path, type_obj=type_obj)
+    return read_config(config_type="json", config_name=config_name, root_path=root_path, nstruct=nstruct)
 
 
 # Nested Structure class to hold contents of a dictionary

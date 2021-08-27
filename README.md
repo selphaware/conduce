@@ -50,7 +50,7 @@ c4() # empty key returns full config dictionary of some.json
 # NStruct (class object) example
 c5 = conduce.read_yaml(config_name="some_deep_nested.yaml", 
                        root_path="some/path/to/the/yaml",
-                       type_obj=True)
+                       nstruct=True)
 
 c5.alpha.hello[3].rho[2].fellow # returns value "end of the road"
 c5.value() # returns the full config dictionary
