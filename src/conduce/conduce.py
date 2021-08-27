@@ -4,7 +4,7 @@ import json
 from os.path import join as opj
 
 
-# reduce dictionary calls to a single string with '.' delimitation
+# reduce dic calls to a single string with '.' delimitation  (ConfigReader)
 def reduce_get(cfg: dict, key: str):
     """
     gets value from dictionary based on flat 'key' provided
