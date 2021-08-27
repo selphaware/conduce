@@ -103,21 +103,24 @@ class NStruct:
         :param entries: dictionary of key value pair items
         """
         for key, val in entries.items():
-            if isinstance(val, dict):
+            if isinstance(val, dict):  # convert dic to NStruct obj
                 self.__dict__.update({key: NStruct(**val)})
-            elif isinstance(val, list):
+            elif isinstance(val, list):  # traverse through list converting dic's to NStruct
                 self.__dict__.update({key: traverse_list(val, NStruct)})
-            else:
+            else:  # neither dic or list, set value to key
                 self.__dict__.update({key: val})
 
     def value(self):
+        """
+        :return: returns full dictionary of current NStruct items
+        """
         res = {}
         for k, v in self.__dict__.items():
-            if isinstance(v, NStruct):
-                res[k] = traverse_dict(v.__dict__)
-            elif isinstance(v, list):
+            if isinstance(v, NStruct):  # traverse through NStruct, converting to dic
+                res[k] = traverse_nstruct(v.__dict__)
+            elif isinstance(v, list):  # traverse through list, converting NStruct to dic
                 res[k] = traverse_list(v, dict)
-            else:
+            else:  # neither NStruct or list, set value to key
                 res[k] = v
         return res
 
@@ -131,18 +134,22 @@ def traverse_list(lss: list, obj_type) -> list:
     """
     res = []
     for ls in lss:
-        if isinstance(ls, dict):
+        if isinstance(ls, dict):  # convert dic to obj_type (NStruct)
+            if not (obj_type == NStruct):
+                raise ValueError("Current item in list is a dict, "
+                                 "therefore obj_type should be NStruct. "
+                                 "Please contact support to resolve this matter.")
             res.append(obj_type(**ls))
-        elif isinstance(ls, NStruct):
-            res.append(traverse_dict(ls.__dict__))
-        elif isinstance(ls, list):
+        elif isinstance(ls, NStruct):  # convert NStruct to dic
+            res.append(traverse_nstruct(ls.__dict__))
+        elif isinstance(ls, list):  # traverse through list converting to obj_type = either dic or NStruct
             res.append(traverse_list(ls, obj_type))
         else:
             res.append(ls)
     return res
 
 
-def traverse_dict(dic: dict) -> dict:
+def traverse_nstruct(dic: dict) -> dict:
     """
     traverses through list converting NStruct to dictionaries
     :param dic: input list
@@ -151,7 +158,7 @@ def traverse_dict(dic: dict) -> dict:
     res = {}
     for k, v in dic.items():
         if isinstance(v, NStruct):
-            res[k] = traverse_dict(v.__dict__)
+            res[k] = traverse_nstruct(v.__dict__)
         elif isinstance(v, list):
             res[k] = traverse_list(v, dict)
         else:
