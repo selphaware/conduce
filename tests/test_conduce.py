@@ -44,6 +44,17 @@ class TestConduce(unittest.TestCase):
         self.assertEqual(len(cfg.alpha.value()['hello']), 4)
         self.assertEqual(list(cfg.value()['alpha']['beta'].keys()), ["gamma"])
 
+    def test_full_value(self):
+        cfg1a = read_json("test.json", "tests")
+        cfg1b = read_json("test.json", "tests", type_obj=True)
+        cfg2a = read_yaml("test.yaml", "tests")
+        cfg2b = read_yaml("test.yaml", "tests", type_obj=True)
+        cfg3a = read_yaml("some_deep_nested.yaml", "tests")
+        cfg3b = read_yaml("some_deep_nested.yaml", "tests", type_obj=True)
+        self.assertEqual(cfg1a(), cfg1b.value())
+        self.assertEqual(cfg2a(), cfg2b.value())
+        self.assertEqual(cfg3a(), cfg3b.value())
+
 
 if __name__ == '__main__':
     unittest.main()
